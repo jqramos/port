@@ -5,6 +5,9 @@ import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {ThemeProvider} from "@material-ui/styles";
+import Typography from "@material-ui/core/Typography";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,33 +20,55 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         backgroundColor: '#2a2e37',
         width: 450,
-        borderRight: '#272727'
+        borderRight: '#272727',
+        textAlign: 'center',
+        color: 'white'
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
         textAlign: "center",
-        paddingTop: 20,
-        fontSize: 40
+        paddingTop: theme.spacing(10),
+        paddingBottom: theme.spacing(10),
+        fontSize: 40,
+        backgroundColor: '#2a2e37',
+        color: 'white'
+    },
+    darkTheme: {
+        backgroundColor: '#2a2e37',
+        textAlign: 'center',
+        color: 'white'
     }
 }));
+
+const theme = createMuiTheme({
+    typography: {
+        fontFamily: 'Rajdhani',
+        h1: {
+            fontSize: 60
+        }
+    }
+});
 
 export default function SideNav() {
     const classes = useStyles();
 
     return (
+        <ThemeProvider theme={theme}>
         <div className={classes.root}>
-
+            <CssBaseline />
             <Drawer
                 className={classes.drawer}
                 variant="permanent"
                 anchor="left"
             >
+                <div className={classes.title}>
+                    <Typography variant="h1">CRAIM</Typography>
+                </div>
                 <List className={classes.drawer}>
-                    {['Home', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
+                    {['WORKS', 'SKETCHES', 'ABOUT'].map((text, index) => (
+                        <ListItem className={classes.drawer} button key={text}>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
@@ -51,5 +76,6 @@ export default function SideNav() {
             </Drawer>
 
         </div>
+        </ThemeProvider>
     )
 }
