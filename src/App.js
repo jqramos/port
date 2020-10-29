@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import NavBar from './components/layout/NavBar';
 
 class App extends Component{
   render() {
