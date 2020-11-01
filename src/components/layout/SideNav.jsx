@@ -8,6 +8,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFacebook, faInstagram, faArtstation, faDeviantart, faYoutube} from "@fortawesome/free-brands-svg-icons";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
+        color: 'white'
     },
     title: {
         textAlign: "center",
@@ -67,12 +70,40 @@ export default function SideNav() {
                     <Typography variant="h1">CRAIM</Typography>
                 </div>
                 <List className={classes.drawer}>
-                    {['WORKS', 'SKETCHES', 'ABOUT'].map((text, index) => (
-                        <ListItem className={classes.drawer} button key={text}>
-                            <ListItemText primary={text} />
+                    {[
+                        {
+                            name: 'WORKS',
+                            path: "/"
+                        },{
+                            name: 'SKETCHES',
+                            path: "/sketches"
+                        },{
+                            name: 'ABOUT',
+                            path: "/about"
+                        }
+                    ].map((obj, index) => (
+                        <ListItem className={classes.drawer} button key={obj.name}>
+                            <ListItemText primary={obj.name} />
                         </ListItem>
                     ))}
                 </List>
+                <div className={classes.title}>
+                    <a target="_blank" className={classes.menuButton}  href="https://facebook.com/craim000" >
+                        <FontAwesomeIcon icon={faFacebook} />
+                    </a>
+                    <a target="_blank" className={classes.menuButton}  href="https://www.instagram.com/craim_" >
+                        <FontAwesomeIcon icon={faInstagram} />
+                    </a>
+                    <a target="_blank" className={classes.menuButton}  href="https://crime000.deviantart.com" >
+                        <FontAwesomeIcon icon={faDeviantart} />
+                    </a>
+                    <a target="_blank" className={classes.menuButton}  href="https://artstation.com/craim" >
+                        <FontAwesomeIcon icon={faArtstation} />
+                    </a>
+                    <a target="_blank" className={classes.menuButton}  href="https://www.youtube.com/channel/UC0RbiPoec4UKRgjU0JD3x1g" >
+                        <FontAwesomeIcon icon={faYoutube} />
+                    </a>
+                </div>
             </Drawer>
 
         </div>
