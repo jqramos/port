@@ -1,0 +1,53 @@
+{
+  "PAGES": {
+    "ORIGINALS": {
+      "works": [
+        {
+          "id": "",
+          "link": "",
+          "title": "",
+          "desc": ""
+        },
+        {
+          "id": "",
+          "link": "",
+          "title": "",
+          "desc": ""
+        }
+      ]
+    },
+    "FANART": {
+      "works": [
+        {
+          "id": "",
+          "link": "",
+          "title": "",
+          "desc": ""
+        },
+        {
+          "id": "",
+          "link": "",
+          "title": "",
+          "desc": ""
+        }
+      ]
+    },
+    "COMMISSIONS": {
+      "works": [
+        {
+          "id": "",
+          "link": "",
+          "title": "",
+          "desc": ""
+        },
+        {
+          "id": "",
+          "link": "",
+          "title": "",
+          "desc": ""
+        }
+      ]
+    },
+    "ABOUT": {}
+  }
+}
