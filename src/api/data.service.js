@@ -1,12 +1,12 @@
-import data from '../assets/data.json';
-class DataService {
-
+import datas from '../assets/data.json';
+export default class DataService {
+    data = {};
     constructor() {
-        this.data = data;
+        this.data = datas;
     }
 
     getOriginal() {
-        return this.data.PAGES.ORIGINALS;
+        return this.data.PAGES.ORIGINALS.works;
     }
 
     getFanart() {
@@ -20,4 +20,5 @@ class DataService {
     getAbout() {
         return this.data.PAGES.ABOUT;
     }
+
 }

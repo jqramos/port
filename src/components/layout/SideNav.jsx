@@ -20,12 +20,12 @@ import About from "../pages/About";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: '#2a2e37',
-        borderRight: '#272727'
+        backgroundColor: '#111',
+        borderRight: '#111'
     },
     drawer: {
         flexGrow: 1,
-        backgroundColor: '#2a2e37',
+        backgroundColor: '#111',
         borderRight: '#272727',
         textAlign: 'center',
         color: 'white',
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(10),
         paddingBottom: theme.spacing(10),
         fontSize: 40,
-        backgroundColor: '#2a2e37',
+        backgroundColor: '#111',
         color: 'white'
     },
     darkTheme: {

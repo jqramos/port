@@ -6,7 +6,7 @@ body {
   font-family: 'Rajdhani', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #2a2e37 !important;
+  background-color: #111 !important;
 }
 
 code {
