@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'white'
     },
     darkTheme: {
-        backgroundColor: '#2a2e37',
+        backgroundColor: '#111',
         textAlign: 'center',
         color: 'white'
     },
@@ -62,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         textDecoration: 'none',
         fontSize: 14
+    },
+    borderRight: {
+        borderRight: '1px solid rgb(255 222 222 / 12%)',
+
     }
 }));
 
@@ -69,14 +73,17 @@ const theme = createMuiTheme({
     typography: {
         fontFamily: 'Rajdhani',
         h1: {
-            fontSize: 60
+            fontSize: 46
         }
     },
     overrides: {
         MuiDrawer: {
             paper: {
-                position: 'relative'
+                position: 'relative',
             },
+            paperAnchorDockedLeft: {
+                borderRight: 'none'
+            }
         }
     }
 });
@@ -90,7 +97,7 @@ export default function SideNav() {
             <CssBaseline />
             <Router>
                 <Grid container>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} className={classes.borderRight}>
                         <Drawer
                             className={classes.drawer}
                             variant="permanent"

@@ -6,6 +6,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import DataService from "../../api/data.service.js";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,15 +14,24 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         overflow: 'hidden',
-        backgroundColor: '#2a2e37',
+        backgroundColor: '#111'
     },
     gridList: {
-        height: "max-content",
+        height: "max-content"
     },
     icon: {
         color: 'rgba(255, 255, 255, 0.54)',
     },
+    grid: {
+        paddingTop: theme.spacing(14)
+    }
 }));
+
+const theme = createMuiTheme({
+    overrides: {
+    }
+});
+
 
 export default function Original() {
     const classes = useStyles();
@@ -30,10 +40,10 @@ export default function Original() {
 
     return (
         <div className={classes.root} >
-            <GridList cellHeight={180} className={classes.gridList}  cols={3}>
+            <GridList cellHeight={180} spacing={4} className={classes.gridList} cols={3}>
                 {fileData.map((tile) => (
-                    <GridListTile key={tile.id}>
-                        <img src={tile.link} alt={tile.title} />
+                    <GridListTile key={tile.id}   >
+                        <img src={'https://storage.googleapis.com/craim/original/' + tile.link} alt={tile.title} className={classes.grid}/>
                     </GridListTile>
                 ))}
             </GridList>

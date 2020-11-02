@@ -10,11 +10,11 @@ export default class DataService {
     }
 
     getFanart() {
-        return this.data.PAGES.FANART;
+        return this.data.PAGES.FANART.works;
     }
 
     getCommission() {
-        return this.data.PAGES.COMMISSIONS;
+        return this.data.PAGES.COMMISSIONS.works;
     }
 
     getAbout() {
