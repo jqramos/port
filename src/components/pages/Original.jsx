@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import {makeStyles} from "@material-ui/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
 import DataService from "../../api/data.service.js";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import View from "./View";
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import {useHistory, useRouteMatch} from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,30 +22,46 @@ const useStyles = makeStyles((theme) => ({
         color: 'rgba(255, 255, 255, 0.54)',
     },
     grid: {
-        paddingTop: theme.spacing(14)
+        [theme.breakpoints.up('md')]: {
+            paddingTop: theme.spacing(14)
+        },
+        cursor: 'pointer'
     }
 }));
 
-const theme = createMuiTheme({
-    overrides: {
-    }
-});
 
 
 export default function Original() {
+    let { path, url } = useRouteMatch();
+
     const classes = useStyles();
     const api = new DataService();
     const fileData =  api.getOriginal();
+    const history = useHistory();
+
+
+    const redirect = (id) => {
+        history.push(`${path}/${id}`);
+    }
 
     return (
-        <div className={classes.root} >
-            <GridList cellHeight={180} spacing={4} className={classes.gridList} cols={3}>
-                {fileData.map((tile) => (
-                    <GridListTile key={tile.id}   >
-                        <img src={'https://storage.googleapis.com/craim/original/' + tile.link} alt={tile.title} className={classes.grid}/>
-                    </GridListTile>
-                ))}
-            </GridList>
-        </div>
+        <Switch>
+            <Route exact path={path}>
+                <div className={classes.root} >
+                    <GridList cellHeight={180} className={classes.gridList} cols={3}>
+                        {fileData.map((tile) => (
+                            <GridListTile key={tile.id} onClick={() => {redirect(tile.id)}}>
+                                <img src={'https://storage.googleapis.com/craim/original/' + tile.url} alt={tile.title}
+                                     className={classes.grid}  />
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </div>
+            </Route>
+            <Route path={`${path}/:fileId`}>
+                <View/>
+            </Route>
+        </Switch>
+
     )
 }

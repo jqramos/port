@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebook, faInstagram, faArtstation, faDeviantart, faYoutube} from "@fortawesome/free-brands-svg-icons";
 import Grid from "@material-ui/core/Grid";
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
 import Original from "../pages/Original";
 import Commission from "../pages/Commission";
 import Fanart from "../pages/Fanart";
@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 40,
         backgroundColor: '#111',
         color: 'white'
+    },
+    center: {
+        textAlign: 'center',
+        width: '100%'
     },
     darkTheme: {
         backgroundColor: '#111',
@@ -110,21 +114,23 @@ export default function SideNav() {
                                 {[
                                     {
                                         name: 'ORGINALS',
-                                        path: ""
+                                        path: "/originals"
                                     },{
                                         name: 'FANARTS',
                                         path: "/fanart"
                                     },{
-                                        name: 'COMMISSIONS',
+                                        name: 'COMMISSIONED WORKS',
                                         path: "/commissions"
                                     },{
                                         name: 'ABOUT',
                                         path: "/about"
                                     }
                                 ].map((obj, index) => (
-                                    <ListItem className={classes.drawer} button key={obj.name}>
-                                        <Link className={classes.link} to={obj.path}>{obj.name}</Link>
-                                    </ListItem>
+                                    <Link className={classes.link} to={obj.path} >
+                                        <ListItem className={classes.drawer} button key={obj.name}>
+                                            <div className={classes.center}>{obj.name}</div>
+                                        </ListItem>
+                                    </Link>
                                 ))}
                             </List>
                             <div className={classes.title}>
@@ -150,10 +156,13 @@ export default function SideNav() {
                     <Grid item xs={8}>
                         <main className={classes.content}>
                             <Switch>
-                                <Route exact path="/" component={Original} />
-                                <Route exact path="/commissions" component={Commission} />
-                                <Route exact path="/fanart" component={Fanart} />
-                                <Route exact path="/about" component={About} />
+                                <Route exact path="/">
+                                    <Redirect to="/originals" />
+                                </Route>
+                                <Route path="/originals" component={Original} />
+                                <Route path="/commissions" component={Commission} />
+                                <Route path="/fanart" component={Fanart} />
+                                <Route path="/about" component={About} />
                             </Switch>
                         </main>
                     </Grid>
