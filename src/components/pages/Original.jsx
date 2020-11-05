@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
-import {makeStyles} from "@material-ui/styles";
+import {makeStyles, ThemeProvider} from "@material-ui/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import DataService from "../../api/data.service.js";
 import View from "./View";
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import {useHistory, useRouteMatch} from "react-router";
+import Typography from "@material-ui/core/Typography";
+import Pagination from '@material-ui/lab/Pagination';
+import Grid from "@material-ui/core/Grid";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,30 +30,59 @@ const useStyles = makeStyles((theme) => ({
             paddingTop: theme.spacing(14)
         },
         cursor: 'pointer'
+    },
+    page: {
+        color: 'white',
+        textAlign: 'center',
+        '& button,div': {
+            color: 'white'
+        },
+        '& nav': {
+            width: 'max-content',
+            display: 'inline-block'
+        },
+        '& .Mui-selected': {
+            backgroundColor: 'rgb(255 255 255 / 29%)'
+        }
     }
 }));
 
-
+const theme = createMuiTheme({
+    overrides: {
+        MuiPaginationItem: {
+            outlined: {
+                border: '1px solid white'
+            }
+        }
+    }
+})
 
 export default function Original() {
     let { path, url } = useRouteMatch();
-
     const classes = useStyles();
     const api = new DataService();
     const fileData =  api.getOriginal();
     const history = useHistory();
-
+    const [page, setPage] = React.useState(1);
+    let pageMap = fileData.slice((1 - 1) * 9, 1 * 9);
+    let [content, setContent] = React.useState(pageMap);
 
     const redirect = (id) => {
         history.push(`${path}/${id}`);
     }
+    const handleChange = (event, value) => {
+        setPage(value);
+        pageMap = fileData.slice((value - 1) * 9, value * 9);
+        setContent(pageMap);
+    };
 
     return (
         <Switch>
             <Route exact path={path}>
+                <ThemeProvider theme={theme}>
                 <div className={classes.root} >
                     <GridList cellHeight={180} className={classes.gridList} cols={3}>
-                        {fileData.map((tile) => (
+                        {content.map((tile) => (
                             <GridListTile key={tile.id} onClick={() => {redirect(tile.id)}}>
                                 <img src={'https://storage.googleapis.com/craim/original/' + tile.url} alt={tile.title}
                                      className={classes.grid}  />
@@ -57,11 +90,14 @@ export default function Original() {
                         ))}
                     </GridList>
                 </div>
+                <Grid className={classes.page}>
+                    <Pagination  className={classes.page} count={fileData.length%9===0 ? fileData.length/9 : Math.floor(fileData.length/9) +1} page={page} onChange={handleChange} />
+                </Grid>
+                </ThemeProvider>
             </Route>
             <Route path={`${path}/:fileId`}>
                 <View/>
             </Route>
         </Switch>
-
     )
 }
